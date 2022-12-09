@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post</title> 
+    <link rel="stylesheet" href="{%static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Hello, I'm using DRF api</h1> 
+    <h2 id="name">Name:</h2> 
+    <h2 id="time">TimeCreated:</h2>
+    <button>CHeck</button>
+    <script type="text/javascript">
+        const name=document.querySelector('button').addEventListener('click',getData) 
+        function getData(){
+            let url="http://127.0.0.1:8000/" 
+            fetch(url)
+            .then(res=>res.json()) 
+            .then(data=>{
+                console.log(data) 
+                console.log(data.length) 
+                let i=Math.floor(Math.random()*data.length)
+                document.getElementById('name').innerText=`Name: ${data[i].name}`
+                document.getElementById('time').innerText=`TimeCreated: ${data[i].created}` 
+                if(i%2===0){
+                    document.querySelector('body').style.backgroundColor="blue"
+                } 
+                else{
+                    document.querySelector('body').style.backgroundColor="green"
+                }
+                
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
+    </script>
+</body>
+</html>
